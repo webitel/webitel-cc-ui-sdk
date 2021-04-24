@@ -1,8 +1,8 @@
 /* eslint-disable */
 import LibVue from 'vue';
 // import Components from './components'; // init all components
-import instanceOption from './options/instance';
-import openAPIConfigOption from './options/openAPIConfig';
+import instanceOption from './_install/options/instance';
+import openAPIConfigOption from './_install/options/openAPIConfig';
 
 export default {
   install(Vue, {
