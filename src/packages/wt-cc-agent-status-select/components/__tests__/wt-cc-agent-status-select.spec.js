@@ -1,7 +1,7 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils';
 import Vuex from 'vuex';
 import AgentStatus from '@webitel/ui-sdk/src/enums/AgentStatus/AgentStatus.enum';
-import AgentStatusSelect from '../agent-status-select.vue';
+import WtCCAgentStatusSelect from '../wt-cc-agent-status-select.vue';
 import statusSelect from '../../store/agent-status-select';
 import PauseCauseAPI from '../../api/pause-cause';
 
@@ -37,19 +37,19 @@ const mountOptions = {
   propsData: { namespace },
 };
 
-describe('Agent status select', () => {
+describe('Wt CC Agent Status Select', () => {
   beforeEach(() => {
     updateAgentStatusMock.mockClear();
     getAgentPauseCausesMock.mockClear();
   });
   it('renders a component', () => {
-    const wrapper = shallowMount(AgentStatusSelect, mountOptions);
+    const wrapper = shallowMount(WtCCAgentStatusSelect, mountOptions);
     expect(wrapper.exists())
       .toBe(true);
   });
   it(`at wt-status-select "change" to "online" event,  triggers UPDATE_AGENT_STATUS
    with "online" status`, () => {
-    const wrapper = shallowMount(AgentStatusSelect, mountOptions);
+    const wrapper = shallowMount(WtCCAgentStatusSelect, mountOptions);
     wrapper.findComponent({ name: 'wt-status-select' })
       .vm.$emit('change', AgentStatus.ONLINE);
     const actionPayload = {
@@ -58,7 +58,7 @@ describe('Agent status select', () => {
     expect(updateAgentStatusMock.mock.calls[0][1]).toEqual(actionPayload);
   });
   it('at wt-status-select "change" to "pause" event, pause causes are loaded', async () => {
-    const wrapper = shallowMount(AgentStatusSelect, mountOptions);
+    const wrapper = shallowMount(WtCCAgentStatusSelect, mountOptions);
     wrapper.findComponent({ name: 'wt-status-select' })
       .vm.$emit('change', AgentStatus.PAUSE);
     await wrapper.vm.$nextTick();
@@ -66,20 +66,20 @@ describe('Agent status select', () => {
   });
   it(`at wt-status-select "change" to "pause" event and pause causes truthy response,
    pause-cause-popup appears`, async () => {
-    const wrapper = shallowMount(AgentStatusSelect, mountOptions);
+    const wrapper = shallowMount(WtCCAgentStatusSelect, mountOptions);
     wrapper.findComponent({ name: 'wt-status-select' })
       .vm.$emit('change', AgentStatus.PAUSE);
     await wrapper.vm.$nextTick(); // load pause causes
     await wrapper.vm.$nextTick(); // render popup
-    expect(wrapper.findComponent({ name: 'pause-cause-popup' }).isVisible()).toBe(true);
+    expect(wrapper.findComponent({ name: 'wt-cc-pause-cause-popup' }).isVisible()).toBe(true);
   });
   it(`at pause-cause-popup "change" event, triggers UPDATE_AGENT_STATUS
    with "pause" status and passed pauseCause`, async () => {
     const pauseCause = 'jest';
-    const wrapper = shallowMount(AgentStatusSelect, mountOptions);
+    const wrapper = shallowMount(WtCCAgentStatusSelect, mountOptions);
     wrapper.vm.openPauseCausePopup();
     await wrapper.vm.$nextTick();
-    wrapper.findComponent({ name: 'pause-cause-popup' })
+    wrapper.findComponent({ name: 'wt-cc-pause-cause-popup' })
       .vm.$emit('change', pauseCause);
     const actionPayload = {
       status: AgentStatus.PAUSE, agentId: agent.agentId, pauseCause,

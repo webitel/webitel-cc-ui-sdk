@@ -1,5 +1,5 @@
 <template>
-  <wt-popup class="pause-cause-popup" min-width="480" @close="close">
+  <wt-popup class="wt-cc-pause-cause-popup" min-width="480" @close="close">
     <template slot="title">
       {{ $t('packages.agentStatusSelect.pauseCausePopup.title') }}
     </template>
@@ -7,20 +7,20 @@
       <form @submit.prevent="setPause">
         <ul>
           <li
-            class="pause-cause-popup__option"
+            class="wt-cc-pause-cause-popup__option"
             v-for="(option) of options"
             :key="option.id"
           >
             <wt-radio
-              class="pause-cause-popup__option__radio"
+              class="wt-cc-pause-cause-popup__option__radio"
               :selected="selected.id"
               :value="option.id"
               :label="option.name"
               @input="select(option)"
             ></wt-radio>
-            <div class="pause-cause-popup__option__limits-wrapper">
+            <div class="wt-cc-pause-cause-popup__option__limits-wrapper">
               <span :class="{
-                    'pause-cause-popup__option__duration--overflow': isDurationOverflow(option),
+                    'wt-cc-pause-cause-popup__option__duration--overflow': isDurationOverflow(option),
                  }">
                 {{ optionDuration(option) }}
               </span>
@@ -50,7 +50,7 @@
 import pauseCauseDurationMixin from '../../mixins/pauseCauseDurationMixin';
 
 export default {
-  name: 'pause-cause-popup',
+  name: 'wt-cc-pause-cause-popup',
   mixins: [pauseCauseDurationMixin],
   props: {
     options: {
@@ -77,7 +77,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.pause-cause-popup__option {
+.wt-cc-pause-cause-popup__option {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -86,13 +86,13 @@ export default {
   }
 }
 
-.pause-cause-popup__option__limits-wrapper {
+.wt-cc-pause-cause-popup__option__limits-wrapper {
   & > span {
     @extend %typo-strong-sm;
     padding: 6px 10px;
   }
 
-  .pause-cause-popup__option__duration--overflow {
+  .wt-cc-pause-cause-popup__option__duration--overflow {
     color: var(--false-color);
   }
 }

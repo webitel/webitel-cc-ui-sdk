@@ -1,7 +1,7 @@
 <template>
-  <article class="agent-status-select">
+  <article class="wt-cc-agent-status-select">
     <wt-status-select
-      class="agent-status-select__status-select"
+      class="wt-cc-agent-status-select__status-select"
       :status="agent.status"
       :status-duration="agent.statusDuration"
       @change="handleStatusSelectInput"
@@ -20,10 +20,10 @@ import getNamespacedState from '@webitel/ui-sdk/src/store/helpers/getNamespacedS
 import AgentStatus from '@webitel/ui-sdk/src/enums/AgentStatus/AgentStatus.enum';
 import { mapActions, mapState } from 'vuex';
 import PauseCauseAPI from '../api/pause-cause';
-import PauseCausePopup from './_internals/pause-cause-popup.vue';
+import PauseCausePopup from './_internals/wt-cc-pause-cause-popup.vue';
 
 export default {
-  name: 'agent-status-select',
+  name: 'wt-cc-agent-status-select',
   components: { PauseCausePopup },
   props: {
     namespace: {
@@ -36,6 +36,7 @@ export default {
   },
   data: () => ({
     isPauseCausePopup: false,
+    pauseCauses: [],
   }),
   computed: {
     ...mapState({
@@ -96,7 +97,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.agent-status-select__status-select {
+.wt-cc-agent-status-select__status-select {
   max-width: 200px;
 }
 </style>
