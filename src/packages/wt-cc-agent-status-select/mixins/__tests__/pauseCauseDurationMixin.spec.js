@@ -6,9 +6,9 @@ describe('Pause Cause Duration mixin', () => {
     mixins: [pauseCauseDurationMixin],
     render() {},
   };
-  it('isDurationOverflow with limit = 0 returns false', () => {
+  it('renders a component with mixin', () => {
     const wrapper = shallowMount(Component);
-    const option = { durationMin: 10, limitMin: 0 };
-    expect(wrapper.vm.isDurationOverflow(option)).toBe(false);
+    expect(wrapper.exists()).toBe(true);
+
   });
 });

@@ -1,5 +1,8 @@
 <template>
   <div class="playground">
+    <wt-cc-agent-status-timers
+      :status="{ online: '10', offline: '20', pause: '30' }">
+    </wt-cc-agent-status-timers>
     <wt-progress-bar :value="12"></wt-progress-bar>
   </div>
 </template>

@@ -1,8 +1,9 @@
+import agentPauseCauseRepresentationMixin
+  from '../../../mixins/agentPauseCauseRepresentationMixin/agentPauseCauseRepresentationMixin';
+
 export default {
+  mixins: [agentPauseCauseRepresentationMixin],
   methods: {
-    isDurationOverflow({ durationMin, limitMin }) {
-      return (durationMin > limitMin) && limitMin !== 0;
-    },
     optionDuration({ durationMin, limitMin }) {
       return this.isDurationOverflow({ durationMin, limitMin })
         ? `-${durationMin - limitMin} ${this.$t('packages.agentStatusSelect.pauseCausePopup.min')}`
