@@ -1,15 +1,19 @@
 import Vue from 'vue';
 import App from './the-app.vue';
-// import './directives'; // init all directives
-// import './filters'; // init all filters
-import './components'; // init all components
+import router from './router';
 import i18n from './locale/i18n';
-import './plugins/webitel-ui';
+
+import 'prismjs/themes/prism.css';
+import './plugins';
 import './css/main.scss';
+import './components/shared';
+import prismMixin from './mixins/prismMixin';
 
 Vue.config.productionTip = false;
 
 new Vue({
+  router,
   i18n,
+  mixins: [prismMixin],
   render: (h) => h(App),
 }).$mount('#app');

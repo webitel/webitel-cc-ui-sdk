@@ -16,7 +16,7 @@ module.exports = {
     'src/modules/**/*.{js,vue}',
     'src/scripts/**/*.{js,vue}',
     'src/store/**/*.{js,vue}',
-    'src/package/**/*.{js,vue}',
+    'src/packages/**/*.{js,vue}',
     '!src/**/index.js', // No need to cover bootstrap file
   ],
   setupFiles: [
