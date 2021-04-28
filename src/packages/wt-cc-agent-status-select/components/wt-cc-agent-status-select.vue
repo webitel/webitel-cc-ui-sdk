@@ -28,6 +28,7 @@ export default {
   props: {
     namespace: {
       type: String,
+      required: true,
     },
     agentStateVariable: {
       type: String,
