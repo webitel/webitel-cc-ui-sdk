@@ -1,5 +1,5 @@
 import agentPauseCauseRepresentationMixin
-  from '../../../mixins/agentPauseCauseRepresentationMixin/agentPauseCauseRepresentationMixin';
+  from '../../../mixins/agentPauseCauseRepresentation/agentPauseCauseRepresentationMixin';
 
 export default {
   mixins: [agentPauseCauseRepresentationMixin],

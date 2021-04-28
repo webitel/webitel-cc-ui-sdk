@@ -15,6 +15,7 @@ import LocaleDocs from '../components/pages/locale/locale-docs.vue';
 import DirectivesDocs from '../components/pages/directives/directives-docs.vue';
 
 import MixinsDocs from '../components/pages/mixins/mixins-docs.vue';
+import AutoRefreshMixinDocs from '../components/pages/mixins/autoRefresh/autoRefreshMixinDocs.vue';
 import AgentPauseCauseRepresentationMixinDocs from '../components/pages/mixins/agentPauseCauseRepresentationMixin/agentPauseCauseRepresentationMixinDocs.vue';
 
 import ModulesDocs from '../components/pages/modules/modules-docs.vue';
@@ -83,6 +84,11 @@ const routes = [
         path: 'agent-pause-cause-representation',
         name: 'agent-pause-cause-representation',
         component: AgentPauseCauseRepresentationMixinDocs,
+      },
+      {
+        path: 'auto-refresh',
+        name: 'auto-refresh',
+        component: AutoRefreshMixinDocs,
       },
     ],
   },

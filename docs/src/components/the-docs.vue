@@ -4,7 +4,7 @@
       <template slot="header">
         <wt-headline>
           <wt-navigation-bar :nav="nav"/>
-          <h1>Webitel Contact-Center UI SDK v. 0.1.7</h1>
+          <h1>Webitel Contact-Center UI SDK v. 0.1.10</h1>
         </wt-headline>
       </template>
       <template slot="main">
@@ -80,6 +80,11 @@ export default {
         value: 'mixins',
         route: '/mixins',
         subNav: [
+          {
+            name: 'Auto Refresh',
+            value: 'auto-refresh',
+            route: 'auto-refresh',
+          },
           {
             name: 'Agent Pause Cause Representation',
             value: 'agent-pause-cause-representation',
