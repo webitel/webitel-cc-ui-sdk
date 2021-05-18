@@ -1,7 +1,6 @@
 import { AgentServiceApiFactory } from 'webitel-sdk';
 import { SdkListGetterApiConsumer } from 'webitel-sdk/esm2015/api-consumers';
-import instance from '../../../_install/options/instance';
-import openAPIConfig from '../../../_install/options/openAPIConfig';
+import installOptionsRepository from '../../../_install/InstallOptionsRepository';
 
 const _getAgentPauseCauses = (getList) => function ({
                                                       agentId,
@@ -21,7 +20,11 @@ let apiService;
 let listGetter;
 
 const createApiService = () => {
-  apiService = new AgentServiceApiFactory(openAPIConfig.get(), '', instance.get());
+  apiService = new AgentServiceApiFactory(
+    installOptionsRepository.get('openAPIConfig'),
+    '',
+    installOptionsRepository.get('instance'),
+  );
   listGetter = new SdkListGetterApiConsumer(apiService.searchPauseCauseForAgent,
     { defaultListObject })
     .setGetListMethod(_getAgentPauseCauses);

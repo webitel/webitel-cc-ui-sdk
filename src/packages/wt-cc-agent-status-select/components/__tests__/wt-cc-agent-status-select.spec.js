@@ -1,13 +1,18 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils';
-import Vuex from 'vuex';
+import { createLocalVue, shallowMount } from '@vue/test-utils';
 import AgentStatus from '@webitel/ui-sdk/src/enums/AgentStatus/AgentStatus.enum';
-import WtCcAgentStatusSelect from '../wt-cc-agent-status-select.vue';
-import statusSelect from '../../store/agent-status-select';
+import Vuex from 'vuex';
+import AgentStatusAPI from '../../api/agent-status';
 import PauseCauseAPI from '../../api/pause-cause';
+import statusSelect from '../../store/agent-status-select';
+import WtCcAgentStatusSelect from '../wt-cc-agent-status-select.vue';
 
 const pauseCauses = [{ name: 'jest1' }, { name: 'jest2' }];
 const getAgentPauseCausesMock = jest.fn(() => ({ items: pauseCauses }));
 jest.spyOn(PauseCauseAPI, 'getList').mockImplementation(getAgentPauseCausesMock);
+
+const agentStatusMock = jest.fn(() => {
+});
+jest.spyOn(AgentStatusAPI, 'patch').mockImplementation(agentStatusMock);
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
@@ -34,7 +39,10 @@ const store = new Vuex.Store({
 const mountOptions = {
   localVue,
   store,
-  propsData: { namespace },
+  propsData: {
+    agentId: agent.agentId,
+    status: agent.status,
+  },
 };
 
 describe('Wt Cc Agent Status Select', () => {
@@ -47,15 +55,15 @@ describe('Wt Cc Agent Status Select', () => {
     expect(wrapper.exists())
       .toBe(true);
   });
-  it(`at wt-status-select "change" to "online" event,  triggers UPDATE_AGENT_STATUS
+  it(`at wt-status-select "change" to "online" event, triggers UPDATE_AGENT_STATUS
    with "online" status`, () => {
     const wrapper = shallowMount(WtCcAgentStatusSelect, mountOptions);
     wrapper.findComponent({ name: 'wt-status-select' })
       .vm.$emit('change', AgentStatus.ONLINE);
-    const actionPayload = {
+    const reqPayload = {
       status: AgentStatus.ONLINE, agentId: agent.agentId, payload: undefined,
     };
-    expect(updateAgentStatusMock.mock.calls[0][1]).toEqual(actionPayload);
+    expect(agentStatusMock).toHaveBeenCalledWith(reqPayload);
   });
   it('at wt-status-select "change" to "pause" event, pause causes are loaded', async () => {
     const wrapper = shallowMount(WtCcAgentStatusSelect, mountOptions);
@@ -81,9 +89,9 @@ describe('Wt Cc Agent Status Select', () => {
     await wrapper.vm.$nextTick();
     wrapper.findComponent({ name: 'wt-cc-pause-cause-popup' })
       .vm.$emit('change', pauseCause);
-    const actionPayload = {
+    const reqPayload = {
       status: AgentStatus.PAUSE, agentId: agent.agentId, pauseCause,
     };
-    expect(updateAgentStatusMock.mock.calls[0][1]).toEqual(actionPayload);
+    expect(agentStatusMock).toHaveBeenCalledWith(reqPayload);
   });
 });

@@ -1,4 +1,4 @@
-import instance from '../../../../_install/options/instance';
+import installOptionsRepository from '../../../../_install/InstallOptionsRepository';
 import PauseCauseAPI from '../pause-cause';
 
 const items = [{ id: 1, name: 'jest' }];
@@ -17,7 +17,7 @@ const expectedResponse = {
   doesn't watch path changes in jest.mock()
  */
 const getMock = jest.fn(() => ({ items }));
-jest.spyOn(instance.get(), 'request')
+jest.spyOn(installOptionsRepository.get('instance'), 'request')
 .mockImplementation(getMock);
 
 describe('Agent Pause Cause API', () => {

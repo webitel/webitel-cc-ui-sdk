@@ -1,9 +1,13 @@
 import { AgentServiceApiFactory } from 'webitel-sdk';
-import instance from '../../../_install/options/instance';
-import openAPIConfig from '../../../_install/options/openAPIConfig';
+import installOptionsRepository from '../../../_install/InstallOptionsRepository';
 
 let apiService;
-const createApiService = () => apiService = new AgentServiceApiFactory(openAPIConfig.get(), '', instance.get());
+
+const createApiService = () => apiService = new AgentServiceApiFactory(
+  installOptionsRepository.get('openAPIConfig'),
+  '',
+  installOptionsRepository.get('instance'),
+);
 
 export const patchAgentStatus = async ({ agentId, status, pauseCause }) => {
   if (!apiService) createApiService();
