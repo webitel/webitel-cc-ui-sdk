@@ -1,5 +1,3 @@
-import instance from '../../../src/_install/options/instance';
-import openAPIConfig from '../../../src/_install/options/openAPIConfig';
+import installOptionsRepository from '../../../src/_install/InstallOptionsRepository';
 
-instance.set({ request: () => {} });
-openAPIConfig.set({});
+installOptionsRepository.setBulk({ instance: { request: () => {} }, openAPIConfig: {} })

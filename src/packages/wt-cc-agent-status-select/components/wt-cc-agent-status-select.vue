@@ -2,8 +2,8 @@
   <article class="wt-cc-agent-status-select">
     <wt-status-select
       class="wt-cc-agent-status-select__status-select"
-      :status="agent.status"
-      :status-duration="agent.statusDuration"
+      :status="status"
+      :status-duration="statusDuration"
       @change="handleStatusSelectInput"
     ></wt-status-select>
     <pause-cause-popup
@@ -16,9 +16,8 @@
 </template>
 
 <script>
-import getNamespacedState from '@webitel/ui-sdk/src/store/helpers/getNamespacedState';
 import AgentStatus from '@webitel/ui-sdk/src/enums/AgentStatus/AgentStatus.enum';
-import { mapActions, mapState } from 'vuex';
+import AgentStatusAPI from '../api/agent-status';
 import PauseCauseAPI from '../api/pause-cause';
 import PauseCausePopup from './_internals/wt-cc-pause-cause-popup.vue';
 
@@ -26,36 +25,30 @@ export default {
   name: 'wt-cc-agent-status-select',
   components: { PauseCausePopup },
   props: {
-    namespace: {
-      type: String,
-      required: true,
+    agentId: {
+      type: [String, Number],
     },
-    agentStateVariable: {
-      type: String,
-      default: 'agent',
+    status: {
+      // can be undefined, is agent wasn't loaded yet
+      default: AgentStatus.OFFLINE,
+    },
+    statusDuration: {
+      type: [Number, String],
+      default: 0,
     },
   },
   data: () => ({
     isPauseCausePopup: false,
     pauseCauses: [],
   }),
-  computed: {
-    ...mapState({
-      agent(state) {
-        return getNamespacedState(state, this.namespace)[this.agentStateVariable];
-      },
-    }),
-    statusSelectNamespace() {
-      const statusSelectNamespace = 'statusSelect';
-      return `${this.namespace}/${statusSelectNamespace}`;
-    },
-  },
   methods: {
-    ...mapActions({
-      updateStatus(dispatch, payload) {
-        return dispatch(`${this.statusSelectNamespace}/UPDATE_AGENT_STATUS`, payload);
-      },
-    }),
+    async updateStatus({ agentId, status, pauseCause }) {
+      try {
+        await AgentStatusAPI.patch({ agentId, status, pauseCause });
+      } catch (err) {
+        throw err;
+      }
+    },
     async handleStatusSelectInput(status) {
       if (status === AgentStatus.PAUSE) {
         await this.loadPauseCauses();
@@ -64,7 +57,7 @@ export default {
           return;
         }
       }
-      if (status === this.agent.status) return;
+      if (status === this.status) return;
       await this.changeStatus({ status });
     },
     handlePauseCauseInput(pauseCause) {
@@ -72,19 +65,21 @@ export default {
       this.changeStatus({ status, pauseCause });
     },
     async changeStatus({ status, pauseCause }) {
-      const { agentId } = this.agent;
-      const statusPayload = { agentId, status, pauseCause };
+      const statusPayload = { agentId: this.agentId, status, pauseCause };
       try {
         await this.updateStatus(statusPayload);
         this.$emit('changed', statusPayload);
-      } catch {}
+      } catch (err) {
+        console.error(err);
+      }
     },
     async loadPauseCauses() {
       this.isLoaded = false;
       try {
-        const response = await PauseCauseAPI.getList({ agentId: this.agent.agentId });
+        const response = await PauseCauseAPI.getList({ agentId: this.agentId });
         this.pauseCauses = response.items;
-      } catch {}
+      } catch {
+      }
       this.isLoaded = true;
     },
     openPauseCausePopup() {

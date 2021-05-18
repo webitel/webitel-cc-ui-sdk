@@ -9,7 +9,7 @@
     "link-local-webitel-ui": "rm -rf node_modules/@webitel/cc-ui-sdk && ln -s /home/user/Projects/webitel-cc-ui-sdk node_modules/@webitel/cc-ui-sdk"
   },
   "dependencies": {
-    "@webitel/cc-ui-sdk": "^0.1.10",
+    "@webitel/cc-ui-sdk": "^0.1.15",
     "@webitel/ui-sdk": "^0.7.69",
     "core-js": "^3.6.5",
     "prismjs": "^1.20.0",

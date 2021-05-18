@@ -1,4 +1,4 @@
-import instance from '../../../../_install/options/instance';
+import installOptionsRepository from '../../../../_install/InstallOptionsRepository';
 import AgentStatusAPI from '../agent-status';
 
 /* mock SDK method api response with instance mock
@@ -6,7 +6,7 @@ import AgentStatusAPI from '../agent-status';
   doesn't watch path changes in jest.mock()
  */
 const patchMock = jest.fn();
-jest.spyOn(instance.get(), 'request')
+jest.spyOn(installOptionsRepository.get('instance'), 'request')
 .mockImplementation(patchMock);
 
 describe('Agent Status API', () => {

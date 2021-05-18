@@ -1,7 +1,7 @@
 <template>
   <section>
     <h2>Agent Status Select</h2>
-    <p>Agent status select with pause cause selection popup, api's and store module.</p>
+    <p>Agent status select with pause cause selection popup and its api's.</p>
     <article class="figures-wrapper">
       <figure>
         <img
@@ -23,23 +23,15 @@
     </article>
     <article>
       <h3>Usage:</h3>
-      <p>To use this package, you need to <strong>pass instance.js and openAPIConfig at plugin install</strong>.
-      Then, you need to register store module and just use the component.</p>
-      <p>use store module: </p>
-      <pre><code class="language-javascript">
-        // agent-store.js
-        import statusSelect from '@webitel/cc-ui-sdk/src/packages/wt-cc-agent-status-select/store/agent-status-select';
-        ...
-        export default {
-          ...,
-          modules: { statusSelect, ... }
-        }
-      </code></pre>
+      <p>In order to use this package, you need to <strong>set axios instance.js and
+        openAPIConfig.js to installOptionsRepository at webitel-cc-ui plugin install</strong>.</p>
       <p>use component: </p>
       <pre><code class="language-html">
         &lt;template&gt;
           &lt;wt-cc-agent-status-select
-            namespace="agent"
+            :agent-id="agent.agentId"
+            :status="agent.status"
+            :status-duration="agent.statusDuration"
             @changed="reloadAgent"
           &gt;&lt;/wt-cc-agent-status-select&gt;
         &lt;/template&gt;
@@ -55,8 +47,8 @@
     </article>
     <article>
       <h3>wt-cc-agent-status-select.vue</h3>
-      <p>Package component is patching agent status by itself using store action, but doesn't load
-      an agent and his status by itself. This decision were made because there's only 1 api
+      <p>Package component is patching agent status by itself, but doesn't load
+      an agent and his status. This decision were made because there's only 1 api
       for status patch, but many ways to get agent instance.</p>
       <component-props
         :properties="properties"
@@ -74,8 +66,35 @@ import Prism from 'prismjs';
 export default {
   name: 'wt-cc-agent-status-select-docs',
   data: () => ({
-    properties: [{}],
-    events: [{}],
+    properties: [
+      {
+        value: 'agentId',
+        code: '<wt-cc-agent-status-timers :agentId="10"></wt-cc-agent-status-timers>',
+        type: ['Number', 'String'],
+        description: 'Id of agent we\'re working on. Used for patching status changes and receiving pause causes.',
+      },
+      {
+        value: 'status',
+        code: '<wt-cc-agent-status-timers :status="\'online\'"></wt-cc-agent-status-timers>',
+        type: 'String',
+        default: 'AgentStatus.OFFLINE // \'offline\'',
+        description: 'Agent status.',
+      },
+      {
+        value: 'statusDuration',
+        code: '<wt-cc-agent-status-timers :status="\'online\'"></wt-cc-agent-status-timers>',
+        type: ['String', 'Number'],
+        description: `Value, represented on select. If value is numeric, it is parsed by
+         convertDuration webitel-ui script`,
+      },
+    ],
+    events: [
+      {
+        name: 'changed',
+        params: [{ name: 'change status payload', description: '{ agentId, status, pauseCause }' }],
+        description: 'Status changed event.'
+      }
+    ],
   }),
   mounted() {
     Prism.highlightAll();
