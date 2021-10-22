@@ -1,7 +1,7 @@
 <template>
   <article class="wt-cc-agent-status-timers">
     <wt-indicator
-      color="danger"
+      color="disabled"
       :text="status.offline"
     ></wt-indicator>
     <wt-indicator
