@@ -88,7 +88,7 @@ export default {
 
 .wt-cc-pause-cause-popup__option__limits-wrapper {
   & > span {
-    @extend %typo-strong-sm;
+    @extend %typo-caption;
     padding: 6px 10px;
   }
 
