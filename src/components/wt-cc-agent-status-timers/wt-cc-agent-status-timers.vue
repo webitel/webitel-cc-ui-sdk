@@ -33,7 +33,7 @@ export default {
   align-items: center;
 
   .wt-indicator:not(:last-child) {
-    margin-right: var(--component-spacing);
+    margin-right: var(--spacing-sm);
   }
 }
 </style>

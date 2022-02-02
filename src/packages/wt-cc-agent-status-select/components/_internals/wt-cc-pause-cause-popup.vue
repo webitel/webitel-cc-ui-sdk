@@ -82,7 +82,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   &:not(:last-child) {
-    margin-bottom: var(--component-spacing);
+    margin-bottom: var(--spacing-sm);
   }
 }
 
