@@ -1,15 +1,15 @@
 {
   "name": "@webitel/cc-ui-sdk",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "private": false,
   "scripts": {
     "serve-lib": "vue-cli-service serve",
-    "build-lib": "vue-cli-service build --target lib --name cc-ui-sdk src/install.js",
+    "build": "vue-cli-service build --target lib --name cc-ui-sdk src/install.js",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
     "release": "npm publish --access public",
-    "build-publish-lib": "npm run test:unit && npm run build-lib && npm run release",
-    "build-publish-lib:testless": "npm run build-lib && npm run release"
+    "build-publish-lib": "npm run test:unit && npm run build && npm run release",
+    "build-publish-lib:testless": "npm run build && npm run release"
   },
   "main": "./dist/@webitel/cc-ui-sdk.common.js",
   "files": [
@@ -20,7 +20,7 @@
     "src/packages/*"
   ],
   "dependencies": {
-    "@webitel/ui-sdk": "^0.8.64",
+    "@webitel/ui-sdk": "^1.0.1",
     "bamboo-jest-reporter": "^1.0.3",
     "core-js": "^3.6.5",
     "svg-sprite-loader": "^5.0.0",
