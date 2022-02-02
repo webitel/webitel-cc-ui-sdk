@@ -20,7 +20,7 @@
     "src/packages/*"
   ],
   "dependencies": {
-    "@webitel/ui-sdk": "^1.0.1",
+    "@webitel/ui-sdk": "^1.0.3",
     "bamboo-jest-reporter": "^1.0.3",
     "core-js": "^3.6.5",
     "svg-sprite-loader": "^5.0.0",

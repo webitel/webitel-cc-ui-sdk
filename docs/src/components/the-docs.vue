@@ -138,7 +138,7 @@ export default {
 <style lang="scss" scoped>
 .docs {
   min-height: 100%;
-  background: var(--main-page-bg-color);
+  background: var(--page-bg-color);
 
   .wt-page-wrapper__main > * {
     width: 100%;
