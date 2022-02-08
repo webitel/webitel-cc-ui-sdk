@@ -1,6 +1,6 @@
 {
   "name": "@webitel/cc-ui-sdk",
-  "version": "0.1.21",
+  "version": "0.1.22",
   "private": false,
   "scripts": {
     "serve-lib": "vue-cli-service serve",
@@ -20,7 +20,7 @@
     "src/packages/*"
   ],
   "dependencies": {
-    "@webitel/ui-sdk": "^1.0.3",
+    "@webitel/ui-sdk": "^1.0.13",
     "bamboo-jest-reporter": "^1.0.3",
     "core-js": "^3.6.5",
     "svg-sprite-loader": "^5.0.0",
