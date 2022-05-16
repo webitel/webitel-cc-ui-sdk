@@ -5,7 +5,6 @@ import i18n from './locale/i18n';
 
 import 'prismjs/themes/prism.css';
 import './plugins';
-import './css/main.scss';
 import './components/shared';
 import prismMixin from './mixins/prismMixin';
 

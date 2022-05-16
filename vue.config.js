@@ -1,10 +1,11 @@
 /* eslint-disable */
 
 module.exports = {
+  lintOnSave: false,
   css: {
     loaderOptions: {
       sass: {
-        prependData: `
+        additionalData: `
           @import "@/css/main.scss";
         `,
       },
@@ -12,14 +13,13 @@ module.exports = {
   },
   chainWebpack: (config) => {
     config.module
-      .rule('svg')
-      .exclude.add(/^(.*sprites).*\.svg/);
+    .rule('svg')
+    .exclude.add(/^(.*sprite).*\.svg/); // same as in svg-sprite-loader
 
     config.module
-      .rule('svg-sprite')
-      .test(/^(.*sprites).*\.svg/)
-      .use('svg-sprite-loader')
-      .loader('svg-sprite-loader')
-      .options({ symbolId: () => '' });
+    .rule('svg-sprite')
+    .test(/^(.*sprite).*\.svg/) // same as in svg-url-loader
+    .use('svg-sprite-loader')
+    .loader('svg-sprite-loader');
   },
 };

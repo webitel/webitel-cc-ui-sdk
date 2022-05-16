@@ -1,5 +1,6 @@
 <template>
   <div class="playground">
+    <wt-icon icon="edit"></wt-icon>
     <wt-cc-agent-status-timers
       :status="{ online: '10', offline: '20', pause: '30' }">
     </wt-cc-agent-status-timers>
