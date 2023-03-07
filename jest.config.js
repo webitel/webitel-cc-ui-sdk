@@ -2,7 +2,11 @@ module.exports = {
   preset: '@vue/cli-plugin-unit-jest',
   transformIgnorePatterns: [
     // '/node_modules/(?!@webitel/ui-sdk/src|webitel-sdk).+\\.js$',
+    'jest-runner',
   ],
+  testEnvironmentOptions: {
+    customExportConditions: ['node', 'node-addons'],
+  },
   moduleNameMapper: {
     '\\.(jpg|ico|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': '<rootDir>/tests/unit/mocks/fileMock.js',
     '\\.(css|less)$': '<rootDir>/tests/unit/mocks/fileMock.js',
@@ -21,7 +25,6 @@ module.exports = {
   ],
   setupFiles: [
     './tests/config/config.js',
-    './src/plugins/webitel-ui.js',
     // './src/components/index.js',
     // './src/directives/index.js',
   ],

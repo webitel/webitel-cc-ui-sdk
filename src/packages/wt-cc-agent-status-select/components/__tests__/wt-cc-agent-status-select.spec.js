@@ -1,6 +1,6 @@
-import { createLocalVue, shallowMount } from '@vue/test-utils';
+import { shallowMount } from '@vue/test-utils';
 import AgentStatus from '@webitel/ui-sdk/src/enums/AgentStatus/AgentStatus.enum';
-import Vuex from 'vuex';
+import { createStore } from 'vuex';
 import AgentStatusAPI from '../../api/agent-status';
 import PauseCauseAPI from '../../api/pause-cause';
 import statusSelect from '../../store/agent-status-select';
@@ -14,9 +14,6 @@ const agentStatusMock = jest.fn(() => {
 });
 jest.spyOn(AgentStatusAPI, 'patch').mockImplementation(agentStatusMock);
 
-const localVue = createLocalVue();
-localVue.use(Vuex);
-
 const namespace = 'agents';
 const agent = {
   status: '',
@@ -26,7 +23,7 @@ const updateAgentStatusMock = jest.fn();
 jest.spyOn(statusSelect.actions, 'UPDATE_AGENT_STATUS')
   .mockImplementation(updateAgentStatusMock);
 
-const store = new Vuex.Store({
+const store = createStore({
   modules: {
     [namespace]: {
       state: { agent },
@@ -37,9 +34,8 @@ const store = new Vuex.Store({
 });
 
 const mountOptions = {
-  localVue,
-  store,
-  propsData: {
+  global: { plugins: [store] },
+  props: {
     agentId: agent.agentId,
     status: agent.status,
   },

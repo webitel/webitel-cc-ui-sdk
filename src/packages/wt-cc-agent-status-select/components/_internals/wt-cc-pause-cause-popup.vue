@@ -1,9 +1,9 @@
 <template>
   <wt-popup class="wt-cc-pause-cause-popup" min-width="480" @close="close">
-    <template slot="title">
+    <template v-slot:title>
       {{ $t('packages.agentStatusSelect.pauseCausePopup.title') }}
     </template>
-    <template slot="main">
+    <template v-slot:main>
       <form @submit.prevent="setPause">
         <ul>
           <li
@@ -31,7 +31,7 @@
         </ul>
       </form>
     </template>
-    <template slot="actions">
+    <template v-slot:actions>
       <wt-button
         :disabled="!selected"
         @click="setPause"

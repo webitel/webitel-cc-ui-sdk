@@ -10,7 +10,7 @@ describe('Pause cause popup', () => {
   it('at option input event, sets "selected" its value', () => {
     const radioValue = 'jest';
     const wrapper = shallowMount(WtCcPauseCausePopup, {
-      propsData: { options: [radioValue] },
+      props: { options: [radioValue] },
     });
     wrapper.findComponent({ name: 'wt-radio' }).vm.$emit('input');
     expect(wrapper.vm.selected).toEqual(radioValue);

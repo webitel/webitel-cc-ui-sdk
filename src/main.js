@@ -1,14 +1,15 @@
-import Vue from 'vue';
+import { createApp } from 'vue';
 import App from './the-app.vue';
-// import './directives'; // init all directives
-// import './filters'; // init all filters
-import './components'; // init all components
+import Components from './components'; // init all components
 import i18n from './locale/i18n';
-import './plugins/webitel-ui';
+import WebitelUi from './plugins/webitel-ui';
 
-Vue.config.productionTip = false;
+const app = createApp(App)
+.use(i18n)
+.use(...WebitelUi);
 
-new Vue({
-  i18n,
-  render: (h) => h(App),
-}).$mount('#app');
+Object.keys(Components).forEach((name) => {
+  app.component(name, Components[name]);
+});
+
+app.mount('#app');
