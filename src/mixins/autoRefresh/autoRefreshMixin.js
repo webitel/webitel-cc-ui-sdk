@@ -4,7 +4,8 @@ import preventHiddenPageCallsDecorator
 export default {
   data: () => ({
     autoRefresh: null,
-    autoRefreshTimeout: 5 * 60 * 1000,
+    defaultAutoRefreshTimeout: 5 * 60 * 1000,
+    autoRefreshTimeout: null,
   }),
 
   created() {
@@ -18,7 +19,9 @@ export default {
   methods: {
     setAutoRefresh() {
       if (this.autoRefresh) clearInterval(this.autoRefresh);
-      const timer = +localStorage.getItem('auto-refresh') || this.autoRefreshTimeout;
+      const timer = this.autoRefreshTimeout
+        || +localStorage.getItem('auto-refresh')
+        || this.defaultAutoRefreshTimeout;
       this.makeAutoRefresh = preventHiddenPageCallsDecorator(this.makeAutoRefresh);
       this.autoRefresh = setInterval(this.makeAutoRefresh, timer);
     },
